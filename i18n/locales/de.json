@@ -1,9 +1,9 @@
 {
-	"download": "herunterladen",
-	"best quality": "höchste Qualität",
+	"download": "Herunterladen",
+	"best quality": "Höchste Qualität",
 	"url": "Adresse",
-	"setting up...": "vorbereitung...",
-	"could not get version": "Konnte keine version für {type} ermitteln",
+	"setting up...": "Vorbereitung...",
+	"could not get version": "Konnte keine Version für {type} ermitteln.",
 	"get version": "{type} version ermitteln",
 	"error": "Fehler",
 	"language": "Sprache",

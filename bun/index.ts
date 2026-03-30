@@ -3,8 +3,6 @@ import type { MyRPC } from "../shared/types/rpc"
 import { BrowserWindow, Updater, Screen, BrowserView } from "electrobun/bun"
 
 import { YtDlpInstance } from "./yt-dlp"
-import { downloadFFmpeg } from "./yt-dlp-utils/ffmpeg"
-import { downloadYtDlp } from "./yt-dlp-utils/yt-dlp"
 
 const DEV_SERVER_PORT = 3000
 const DEV_SERVER_URL = `http://localhost:${DEV_SERVER_PORT}`
@@ -46,15 +44,14 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 					}
 				}
 			},
-			downloadYtDlp: async () => {
-				return {
-					path: await downloadYtDlp(),
-				}
-			},
 			ensureBinaries: async () => {
-				await downloadFFmpeg()
-				await downloadYtDlp()
+				await ytdlp.ensureBinaries()
 				return { success: true }
+			},
+			download: async ({ url, outputPath, preset }) => {
+				return {
+					filePaths: await ytdlp.download(url, outputPath, preset),
+				}
 			},
 		},
 		messages: {},
@@ -67,7 +64,8 @@ const display = Screen.getPrimaryDisplay()
 const windowWidth = 800
 const windowHeight = 600
 
-const mainWindow = new BrowserWindow({
+// const mainWindow =
+new BrowserWindow({
 	title: "dlpgui",
 	url,
 	rpc,
@@ -78,5 +76,3 @@ const mainWindow = new BrowserWindow({
 		height: windowHeight,
 	},
 })
-
-rpc.addMessageListener("logSomething", console.log)

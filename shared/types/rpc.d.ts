@@ -7,19 +7,16 @@ export type MyRPC = {
 				params: { type: "yt-dlp" | "ffmpeg" }
 				response: { output: string }
 			}
-			downloadYtDlp: {
-				params: {}
-				response: { path: string }
-			}
 			ensureBinaries: {
 				params: {}
 				response: { success: boolean }
 			}
+			download: {
+				params: { url: string; outputPath: string; preset: string[] }
+				response: { filePaths: string[] }
+			}
 		}
-		messages: {
-			fileChanged: { path: string }
-			logSomething: { message: string }
-		}
+		messages: {}
 	}>
 	webview: RPCSchema<{
 		requests: {}
