@@ -1,0 +1,20 @@
+{
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"editor.quickSuggestions": {
+		"strings": "on"
+	},
+	"tailwindCSS.classAttributes": ["class", "ui"],
+	"tailwindCSS.experimental.classRegex": [["['\"`]([^'\"`]*)['\"`]"]],
+
+	"oxc.fmt.configPath": ".oxfmtrc.json",
+	"editor.defaultFormatter": "oxc.oxc-vscode",
+	"editor.formatOnSave": true,
+	"[jsonc]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+}
