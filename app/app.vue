@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import * as locales from "@nuxt/ui/locale"
 
-const { locale, setLocale, localeCodes } = useI18n()
-
-const availableLocales = computed(() => {
-	return localeCodes.value.map((code) => {
-		return locales[code]
-	})
-})
+const { locale } = useI18n()
 
 const lang = computed(() => locales[locale.value].code)
 const dir = computed(() => locales[locale.value].dir)
@@ -19,13 +13,13 @@ useHead({
 
 <template>
 	<UApp :locale="locales[locale]">
-		<UHeader title="dlpgui" :toggle="false">
+		<UHeader title="dlpgui" :toggle="false" to="/download">
 			<template #right>
-				<ULocaleSelect
-					:model-value="locale"
-					:locales="availableLocales"
-					@update:model-value="setLocale($event as typeof locale)"
-					class="w-48"
+				<UButton
+					to="/settings"
+					color="neutral"
+					variant="ghost"
+					icon="lucide:settings"
 				/>
 			</template>
 		</UHeader>

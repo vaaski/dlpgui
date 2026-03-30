@@ -1,5 +1,10 @@
 {
-	"download": "Download",
+	"download": "download",
 	"best quality": "best quality",
-	"url": "URL"
+	"url": "URL",
+	"setting up...": "Setting up...",
+	"could not get version": "Could not get {type} version.",
+	"get version": "Get {type} version",
+	"error": "error",
+	"language": "language"
 }

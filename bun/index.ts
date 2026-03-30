@@ -2,10 +2,16 @@ import type { MyRPC } from "../shared/types/rpc"
 
 import { BrowserWindow, Updater, Screen, BrowserView } from "electrobun/bun"
 
+import { YtDlpInstance } from "./yt-dlp"
+import { downloadFFmpeg } from "./yt-dlp-utils/ffmpeg"
+import { downloadYtDlp } from "./yt-dlp-utils/yt-dlp"
+
 const DEV_SERVER_PORT = 3000
 const DEV_SERVER_URL = `http://localhost:${DEV_SERVER_PORT}`
 
-async function getMainViewUrl(): Promise<string> {
+const ytdlp = new YtDlpInstance()
+
+const getMainViewUrl = async () => {
 	const channel = await Updater.localInfo.channel()
 	if (channel === "dev") {
 		try {
@@ -22,16 +28,33 @@ async function getMainViewUrl(): Promise<string> {
 }
 
 const rpc = BrowserView.defineRPC<MyRPC>({
+	maxRequestTime: 60e3,
 	handlers: {
 		requests: {
-			saveFile: async ({ path, content }) => {
-				await Bun.write(path, content)
-				return { success: true }
-			},
-			getYtDlpVersion: async () => {
-				return {
-					output: "1.0.0",
+			getVersion: async ({ type }) => {
+				switch (type) {
+					case "yt-dlp": {
+						return {
+							output: await ytdlp.version(),
+						}
+					}
+					case "ffmpeg": {
+						const versionFull = await ytdlp.versionFFmpeg()
+						return {
+							output: versionFull.split("Copyright").at(0) ?? versionFull,
+						}
+					}
 				}
+			},
+			downloadYtDlp: async () => {
+				return {
+					path: await downloadYtDlp(),
+				}
+			},
+			ensureBinaries: async () => {
+				await downloadFFmpeg()
+				await downloadYtDlp()
+				return { success: true }
 			},
 		},
 		messages: {},

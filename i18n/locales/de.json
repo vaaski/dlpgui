@@ -1,5 +1,11 @@
 {
-	"download": "Herunterladen",
+	"download": "herunterladen",
 	"best quality": "höchste Qualität",
-	"url": "Adresse"
+	"url": "Adresse",
+	"setting up...": "vorbereitung...",
+	"could not get version": "Konnte keine version für {type} ermitteln",
+	"get version": "{type} version ermitteln",
+	"error": "Fehler",
+	"language": "Sprache",
+	"execute": "Ausführen"
 }

@@ -3,13 +3,17 @@ import type { RPCSchema } from "electrobun"
 export type MyRPC = {
 	bun: RPCSchema<{
 		requests: {
-			saveFile: {
-				params: { path: string; content: string }
-				response: { success: boolean }
-			}
-			getYtDlpVersion: {
-				params: {}
+			getVersion: {
+				params: { type: "yt-dlp" | "ffmpeg" }
 				response: { output: string }
+			}
+			downloadYtDlp: {
+				params: {}
+				response: { path: string }
+			}
+			ensureBinaries: {
+				params: {}
+				response: { success: boolean }
 			}
 		}
 		messages: {
