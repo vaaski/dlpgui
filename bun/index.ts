@@ -1,4 +1,6 @@
-import { BrowserWindow, Updater } from "electrobun/bun"
+import type { MyRPC } from "../shared/types/rpc"
+
+import { BrowserWindow, Updater, Screen, BrowserView } from "electrobun/bun"
 
 const DEV_SERVER_PORT = 3000
 const DEV_SERVER_URL = `http://localhost:${DEV_SERVER_PORT}`
@@ -19,17 +21,39 @@ async function getMainViewUrl(): Promise<string> {
 	return "views://mainview/index.html"
 }
 
+const rpc = BrowserView.defineRPC<MyRPC>({
+	handlers: {
+		requests: {
+			saveFile: async ({ path, content }) => {
+				await Bun.write(path, content)
+				return { success: true }
+			},
+			getYtDlpVersion: async () => {
+				return {
+					output: "1.0.0",
+				}
+			},
+		},
+		messages: {},
+	},
+})
+
 const url = await getMainViewUrl()
+
+const display = Screen.getPrimaryDisplay()
+const windowWidth = 800
+const windowHeight = 600
 
 const mainWindow = new BrowserWindow({
 	title: "dlpgui",
 	url,
+	rpc,
 	frame: {
-		width: 900,
-		height: 700,
-		x: 200,
-		y: 200,
+		x: display.bounds.x + (display.bounds.width - windowWidth) / 2,
+		y: display.bounds.y + (display.bounds.height - windowHeight) / 2,
+		width: windowWidth,
+		height: windowHeight,
 	},
 })
 
-console.log("dlpgui app started!")
+rpc.addMessageListener("logSomething", console.log)

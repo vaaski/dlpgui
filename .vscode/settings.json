@@ -5,8 +5,21 @@
 	"editor.quickSuggestions": {
 		"strings": "on"
 	},
-	"tailwindCSS.classAttributes": ["class", "ui"],
-	"tailwindCSS.experimental.classRegex": [["['\"`]([^'\"`]*)['\"`]"]],
+	"tailwindCSS.classAttributes": [
+		"class",
+		"ui",
+		"active-class",
+		"inactive-class",
+		"enter-active-class",
+		"enter-from-class",
+		"enter-to-class",
+		"leave-active-class",
+		"leave-from-class",
+		"leave-to-class"
+	],
+	"tailwindCSS.experimental.classRegex": [
+		["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+	],
 
 	"oxc.fmt.configPath": ".oxfmtrc.json",
 	"editor.defaultFormatter": "oxc.oxc-vscode",
