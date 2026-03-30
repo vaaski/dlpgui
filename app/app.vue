@@ -1,8 +1,32 @@
+<script setup lang="ts">
+import * as locales from "@nuxt/ui/locale"
+
+const { locale, setLocale, localeCodes } = useI18n()
+
+const availableLocales = computed(() => {
+	return localeCodes.value.map((code) => {
+		return locales[code]
+	})
+})
+
+const lang = computed(() => locales[locale.value].code)
+const dir = computed(() => locales[locale.value].dir)
+
+useHead({
+	htmlAttrs: { lang, dir },
+})
+</script>
+
 <template>
-	<UApp>
-		<UHeader title="dlpgui" mode="drawer">
-			<template #body>
-				<UIcon class="w-full text-center text-5xl" name="lucide:construction" />
+	<UApp :locale="locales[locale]">
+		<UHeader title="dlpgui" :toggle="false">
+			<template #right>
+				<ULocaleSelect
+					:model-value="locale"
+					:locales="availableLocales"
+					@update:model-value="setLocale($event as typeof locale)"
+					class="w-48"
+				/>
 			</template>
 		</UHeader>
 

@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
 	compatibilityDate: "2025-07-15",
 	devtools: { enabled: true },
-	modules: ["@nuxt/ui"],
+	modules: ["@nuxt/ui", "@nuxtjs/i18n"],
 	css: ["~/assets/css/main.css"],
 
 	ssr: false,
@@ -15,5 +15,13 @@ export default defineNuxtConfig({
 		tsConfig: {
 			exclude: ["../bun/**/*"],
 		},
+	},
+
+	i18n: {
+		defaultLocale: "en",
+		locales: [
+			{ code: "en", name: "English", file: "en.json" },
+			{ code: "de", name: "Deutsch", file: "de.json" },
+		],
 	},
 })

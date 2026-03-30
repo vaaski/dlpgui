@@ -39,7 +39,7 @@ const formats = ref([
 		icon: "lucide:video",
 	},
 	{
-		label: "MP4 (best quality)",
+		label: `MP4 (${$t("best quality")})`,
 		value: "mp4-best",
 		icon: "lucide:video",
 	},
@@ -55,11 +55,11 @@ const formats = ref([
 				class="space-y-4"
 				@submit="onSubmit"
 			>
-				<UFormField label="URL" name="url">
+				<UFormField :label="$t('url')" name="url">
 					<UInput
 						v-model="state.url"
 						type="url"
-						placeholder="Download URL"
+						:placeholder="`Download ${$t('url')}`"
 						class="min-w-85"
 					/>
 				</UFormField>
@@ -68,7 +68,9 @@ const formats = ref([
 					<USelect v-model="state.format" :items="formats" />
 				</UFormField>
 
-				<UButton type="submit" icon="lucide:rocket"> Download </UButton>
+				<UButton type="submit" icon="lucide:rocket">
+					{{ $t("download") }}
+				</UButton>
 			</UForm>
 		</UCard>
 	</div>
