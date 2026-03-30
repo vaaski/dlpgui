@@ -3,10 +3,12 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "electrobun build",
-		"dev": "nuxt dev",
-		"dev:bun": "electrobun dev",
-		"generate": "nuxt generate",
+		"build": "nuxt generate && electrobun build",
+		"bun:build": "electrobun build",
+		"bun:dev": "electrobun dev --watch",
+		"dev": "concurrently npm:bun:dev npm:nuxt:dev",
+		"nuxt:dev": "nuxt dev",
+		"nuxt:generate": "nuxt generate",
 		"postinstall": "nuxt prepare",
 		"preview": "nuxt preview"
 	},
@@ -20,6 +22,7 @@
 	},
 	"devDependencies": {
 		"@types/bun": "^1.3.11",
+		"concurrently": "^9.2.1",
 		"oxfmt": "^0.42.0",
 		"oxlint": "^1.57.0"
 	},

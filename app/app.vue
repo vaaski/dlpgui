@@ -1,7 +1,7 @@
 <template>
-  <UApp>
-    <NuxtPage>
-      <UButton>Hello</UButton>
-    </NuxtPage>
-  </UApp>
+	<UApp>
+		<NuxtPage>
+			<UButton>built</UButton>
+		</NuxtPage>
+	</UApp>
 </template>

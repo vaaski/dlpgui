@@ -10,5 +10,18 @@ export default {
 		bun: {
 			entrypoint: "bun/index.ts",
 		},
+		copy: {
+			".output/public": "views/mainview",
+		},
+		watchIgnore: [".output/**"],
+		mac: {
+			bundleCEF: false,
+		},
+		linux: {
+			bundleCEF: false,
+		},
+		win: {
+			bundleCEF: false,
+		},
 	},
 } satisfies ElectrobunConfig
