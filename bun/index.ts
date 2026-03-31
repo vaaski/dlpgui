@@ -71,6 +71,11 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 					),
 				}
 			},
+			getGuiVersion: async () => {
+				return {
+					output: process.env.DLPGUI_VERSION ?? "dev",
+				}
+			},
 		},
 		messages: {},
 	},

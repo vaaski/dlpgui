@@ -16,6 +16,10 @@ export type MyRPC = {
 				params: { url: string; outputPath: string; preset: string[] }
 				response: { filePaths: string[] }
 			}
+			getGuiVersion: {
+				params: {}
+				response: { output: string }
+			}
 		}
 		messages: {}
 	}>

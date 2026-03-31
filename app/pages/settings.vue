@@ -41,31 +41,45 @@ const settings = [
 		executor: () => getVersion("ffmpeg"),
 	},
 ] satisfies Setting[]
+
+const version = ref<string>()
+
+onMounted(async () => {
+	const versionResponse = await electrobun.rpc?.request("getGuiVersion", {})
+
+	version.value = versionResponse?.output
+})
 </script>
 
 <template>
-	<UCard class="m-4">
-		<div
-			v-for="setting in settings"
-			:key="setting.label"
-			class="mx-2 my-4 flex place-content-between place-items-center"
-		>
-			<div>
-				<h2 class="text-lg font-bold">{{ setting.label }}</h2>
-			</div>
-			<div>
-				<UButton
-					@click="setting.executor"
-					loading-auto
-					v-if="typeof setting.executor === 'function'"
-				>
-					{{ $t("execute") }}
-				</UButton>
-				<div v-else-if="setting.executor === 'language'">
-					<LocaleSelect />
+	<div class="flex flex-1 flex-col place-content-between">
+		<UCard class="m-4">
+			<div
+				v-for="setting in settings"
+				:key="setting.label"
+				class="mx-2 my-4 flex place-content-between place-items-center"
+			>
+				<div>
+					<h2 class="text-lg font-bold">{{ setting.label }}</h2>
 				</div>
-				<span v-else>{{ $t("not available") }}</span>
+				<div>
+					<UButton
+						@click="setting.executor"
+						loading-auto
+						v-if="typeof setting.executor === 'function'"
+					>
+						{{ $t("execute") }}
+					</UButton>
+					<div v-else-if="setting.executor === 'language'">
+						<LocaleSelect />
+					</div>
+					<span v-else>{{ $t("not available") }}</span>
+				</div>
 			</div>
+		</UCard>
+
+		<div class="m-4 mx-auto text-xs text-muted" v-if="version">
+			version: {{ version }}
 		</div>
-	</UCard>
+	</div>
 </template>
