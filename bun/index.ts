@@ -134,7 +134,18 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 
 ApplicationMenu.setApplicationMenu([
 	{
-		submenu: [{ label: "Quit", role: "quit" }],
+		submenu: [
+			{
+				label: "Quit",
+				role: "close",
+				accelerator: "CommandOrControl+W",
+			},
+			{
+				label: "Quit (angry)",
+				role: "quit",
+				accelerator: "CommandOrControl+Q",
+			},
+		],
 	},
 	{
 		label: "Edit",
