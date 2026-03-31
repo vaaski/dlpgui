@@ -141,7 +141,20 @@ const pasteFromClipboard = async () => {
 							type="url"
 							:placeholder="`Download ${$t('url')}`"
 							class="w-full min-w-85"
-						/>
+							:ui="{ trailing: 'pe-1' }"
+						>
+							<template v-if="state.url?.length" #trailing>
+								<UButton
+									color="neutral"
+									variant="link"
+									size="xs"
+									icon="lucide:x"
+									aria-label="Clear input"
+									@click="state.url = ''"
+									class="opacity-0 transition-opacity group-hover:opacity-100"
+								/>
+							</template>
+						</UInput>
 
 						<UTooltip :text="$t('Paste')">
 							<UButton
