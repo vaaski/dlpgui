@@ -76,6 +76,13 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 					output: process.env.DLPGUI_VERSION ?? "dev",
 				}
 			},
+			checkForUpdate: async () => {
+				const updateInfo = await Updater.checkForUpdate()
+				if (updateInfo.updateAvailable) {
+					await Updater.downloadUpdate()
+					await Updater.applyUpdate()
+				}
+			},
 		},
 		messages: {},
 	},

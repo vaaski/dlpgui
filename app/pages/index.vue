@@ -1,5 +1,6 @@
 <script setup lang="ts">
 onMounted(async () => {
+	await electrobun.rpc?.request("checkForUpdate", {})
 	await electrobun.rpc?.request("ensureBinaries", {})
 	navigateTo("/download", { replace: true })
 })

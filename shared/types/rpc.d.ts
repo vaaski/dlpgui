@@ -20,6 +20,10 @@ export type MyRPC = {
 				params: {}
 				response: { output: string }
 			}
+			checkForUpdate: {
+				params: {}
+				response: {}
+			}
 		}
 		messages: {}
 	}>
