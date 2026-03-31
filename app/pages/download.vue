@@ -66,10 +66,25 @@ const onSubmit = async (event: FormSubmitEvent<DownloadFormSchema>) => {
 
 	state.url = ""
 
+	const filePath = result.filePaths.at(0)
+
 	toast.add({
 		title: $t("downloaded"),
 		description: result.filePaths.join("\n"),
 		color: "success",
+		actions: [
+			{
+				icon: "lucide:folder-open",
+				label: $t("show in folder"),
+				color: "neutral",
+				variant: "subtle",
+				onClick: filePath
+					? () => {
+							electrobun.rpc?.request("showItemInFolder", { path: filePath })
+						}
+					: undefined,
+			},
+		],
 	})
 
 	progress.value = undefined

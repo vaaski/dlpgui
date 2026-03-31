@@ -23,5 +23,6 @@
 	"Videos": "Videos",
 	"Paste": "Einfügen",
 	"yt-dlp channel": "yt-dlp Entwicklungsstand",
-	"switched to channel": "Zum {channel} Entwicklungsstand gewechselt"
+	"switched to channel": "Zum {channel} Entwicklungsstand gewechselt",
+	"show in folder": "In Ordner anzeigen"
 }

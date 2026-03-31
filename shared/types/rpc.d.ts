@@ -54,6 +54,10 @@ export type MyRPC = {
 				params: {}
 				response: { output?: string | null }
 			}
+			showItemInFolder: {
+				params: { path: string }
+				response: {}
+			}
 		}
 		messages: {
 			windowMinimize: {}

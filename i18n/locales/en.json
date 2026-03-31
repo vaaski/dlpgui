@@ -23,5 +23,6 @@
 	"Videos": "Videos",
 	"Paste": "Paste",
 	"yt-dlp channel": "yt-dlp channel",
-	"switched to channel": "Switched to channel {channel}"
+	"switched to channel": "Switched to channel {channel}",
+	"show in folder": "Show in folder"
 }

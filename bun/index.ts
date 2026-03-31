@@ -114,6 +114,9 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 			getClipboard: async () => {
 				return { output: Utils.clipboardReadText() }
 			},
+			showItemInFolder: async ({ path }) => {
+				Utils.showItemInFolder(path)
+			},
 		},
 		messages: {
 			windowMinimize: () => mainWindow.minimize(),
