@@ -18,8 +18,8 @@ jobs:
             os: macos-14
           - name: macos-x64
             os: macos-15-intel
-          - name: linux-x64
-            os: ubuntu-24.04
+          # - name: linux-x64
+          #   os: ubuntu-24.04
           - name: windows-x64
             os: windows-2025
 
