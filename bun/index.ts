@@ -8,6 +8,7 @@ import {
 	Screen,
 	BrowserView,
 	ApplicationMenu,
+	Utils,
 } from "electrobun/bun"
 import { $fetch } from "ofetch"
 
@@ -62,15 +63,11 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 				return { success: true }
 			},
 			download: async ({ url, outputPath, preset }) => {
+				const path = Utils.paths.desktop
 				return {
-					filePaths: await ytdlp.download(
-						url,
-						outputPath,
-						preset,
-						(progress) => {
-							rpc.send("progress", { params: { progress } })
-						},
-					),
+					filePaths: await ytdlp.download(url, path, preset, (progress) => {
+						rpc.send("progress", { params: { progress } })
+					}),
 				}
 			},
 			getGuiVersion: async () => {

@@ -43,7 +43,8 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
 
 	const result = await electrobun.rpc?.request("download", {
 		url,
-		outputPath: "/Users/A200007423/Desktop",
+		// todo: let user configure output path
+		outputPath: "",
 		preset: [...presets[format]],
 	})
 
