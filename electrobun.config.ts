@@ -14,7 +14,7 @@ export default {
 			entrypoint: "bun/index.ts",
 			define: {
 				"process.env.DLPGUI_VERSION": JSON.stringify(
-					process.env.DLPGUI_VERSION,
+					process.env.DLPGUI_VERSION ?? "dev",
 				),
 			},
 		},
