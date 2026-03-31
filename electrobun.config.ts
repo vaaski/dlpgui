@@ -6,6 +6,9 @@ export default {
 		identifier: "dev.vaaski.dlpgui",
 		version: "0.0.1",
 	},
+	release: {
+		baseUrl: "https://github.com/vaaski/dlpgui/releases/latest/download",
+	},
 	build: {
 		bun: {
 			entrypoint: "bun/index.ts",
