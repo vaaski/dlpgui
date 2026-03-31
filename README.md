@@ -21,6 +21,7 @@ Also uses [ytdlp-nodejs](https://npmx.dev/package/ytdlp-nodejs) with some of the
   - `MP3`
   - `MP4` (fastest combined audio+video, youtube limits this to around 720p)
   - `MP4 (best quality)` (uses ffmpeg to combine best video and audio)
+- Pick custom or from a list of common download locations
 - German and English translations (both bad)
 - Paste from clipboard button
 - Progress reporting
@@ -29,6 +30,16 @@ Also uses [ytdlp-nodejs](https://npmx.dev/package/ytdlp-nodejs) with some of the
 - Auto-updates
 - Custom yt-dlp channel (stable or nightly)
 - Windows and Mac versions (can't be bothered to test on linux)
+
+## Install
+
+Download the latest release from the [releases page](https://github.com/vaaski/dlpgui/releases/latest).
+
+Direct download links:
+
+- [Windows](https://github.com/vaaski/dlpgui/releases/latest/download/stable-win-x64-dlpgui-Setup.zip)
+- [Mac (Apple Silicon)](https://github.com/vaaski/dlpgui/releases/latest/download/stable-macos-arm64-dlpgui.dmg)
+- [Mac (Intel)](https://github.com/vaaski/dlpgui/releases/latest/download/stable-macos-x64-dlpgui.dmg)
 
 ## Thoughts
 
@@ -77,8 +88,10 @@ I am open to contributions though.
 
 <br>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://brainmade.org/white-logo.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://brainmade.org/black-logo.svg">
-  <img alt="Brainmade.org Logo" src="https://brainmade.org/black-logo.svg">
-</picture>
+<a href="https://brainmade.org">
+	<picture>
+		<source media="(prefers-color-scheme: dark)" srcset="https://brainmade.org/white-logo.svg">
+		<source media="(prefers-color-scheme: light)" srcset="https://brainmade.org/black-logo.svg">
+		<img alt="Brainmade.org Logo" src="https://brainmade.org/black-logo.svg">
+	</picture>
+</a>
