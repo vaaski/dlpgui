@@ -6,6 +6,7 @@ import z from "zod"
 
 const toast = useToast()
 const filePickerOpen = ref(false)
+const formRef = useTemplateRef("form")
 
 const formats = ref([
 	{
@@ -121,6 +122,7 @@ const pasteFromClipboard = async () => {
 	if (!text?.output) return
 
 	state.url = text.output
+	formRef.value?.validate({})
 }
 </script>
 
@@ -133,6 +135,7 @@ const pasteFromClipboard = async () => {
 				class="space-y-4"
 				@submit="onSubmit"
 				:disabled="filePickerOpen"
+				ref="form"
 			>
 				<UFormField :label="$t('url')" name="url">
 					<UFieldGroup>
