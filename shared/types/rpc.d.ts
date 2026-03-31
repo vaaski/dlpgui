@@ -44,6 +44,10 @@ export type MyRPC = {
 				params: {}
 				response: { output?: string }
 			}
+			getClipboard: {
+				params: {}
+				response: { output?: string | null }
+			}
 		}
 		messages: {
 			windowMinimize: {}

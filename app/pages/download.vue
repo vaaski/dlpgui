@@ -88,6 +88,13 @@ onMounted(() => {
 		progress.value = params.progress
 	})
 })
+
+const pasteFromClipboard = async () => {
+	const text = await electrobun.rpc?.request("getClipboard", {})
+	if (!text?.output) return
+
+	state.url = text.output
+}
 </script>
 
 <template>
@@ -101,12 +108,24 @@ onMounted(() => {
 				:disabled="filePickerOpen"
 			>
 				<UFormField :label="$t('url')" name="url">
-					<UInput
-						v-model="state.url"
-						type="url"
-						:placeholder="`Download ${$t('url')}`"
-						class="w-full min-w-85"
-					/>
+					<UFieldGroup>
+						<UInput
+							v-model="state.url"
+							type="url"
+							:placeholder="`Download ${$t('url')}`"
+							class="w-full min-w-85"
+						/>
+
+						<UTooltip :text="$t('Paste')">
+							<UButton
+								icon="lucide:clipboard"
+								variant="subtle"
+								size="sm"
+								color="neutral"
+								@click="pasteFromClipboard"
+							/>
+						</UTooltip>
+					</UFieldGroup>
 				</UFormField>
 
 				<div class="grid w-full grid-cols-2 gap-2">
