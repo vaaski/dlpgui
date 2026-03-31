@@ -1,13 +1,15 @@
 <script setup lang="ts">
 onMounted(async () => {
 	await electrobun.rpc?.request("ensureBinaries", {})
-	navigateTo("/download")
+	navigateTo("/download", { replace: true })
 })
 </script>
 
 <template>
-	<div class="flex flex-1 place-content-center place-items-center">
-		<UIcon name="lucide:loader" class="animate-spin" />
+	<div
+		class="flex flex-1 flex-col place-content-center place-items-center gap-4"
+	>
 		<span class="ml-2">{{ $t("setting up...") }}</span>
+		<UProgress animation="swing" class="max-w-100" />
 	</div>
 </template>

@@ -4,17 +4,24 @@ import { downloadFFmpeg, findFFmpegBinary } from "./yt-dlp-utils/ffmpeg"
 import { downloadYtDlp, findYtdlpBinary } from "./yt-dlp-utils/yt-dlp"
 
 export class YtDlpInstance {
-	#binary = findYtdlpBinary()
-	#binaryFFmpeg = findFFmpegBinary()
+	#binary: string | undefined
+	#binaryFFmpeg: string | undefined
 
-	ytDlp = new YtDlp()
+	ytDlp = new YtDlp({
+		binaryPath: findYtdlpBinary(),
+		ffmpegPath: findFFmpegBinary(),
+	})
 
 	#exec = (
 		cmd: string[],
 		options?: Bun.SpawnOptions.SpawnOptions<"ignore", "pipe", "inherit">,
 	) => {
 		if (!this.#binary) {
-			throw new Error("Ytdlp binary not found. Please download it first.")
+			this.#binary = findYtdlpBinary()
+
+			if (!this.#binary) {
+				throw new Error("Ytdlp binary not found. Please download it first.")
+			}
 		}
 
 		return Bun.spawn([this.#binary, ...cmd], options)
@@ -22,7 +29,11 @@ export class YtDlpInstance {
 
 	#execFFmpeg = (cmd: string[]) => {
 		if (!this.#binaryFFmpeg) {
-			throw new Error("FFmpeg binary not found. Please download it first.")
+			this.#binaryFFmpeg = findFFmpegBinary()
+
+			if (!this.#binaryFFmpeg) {
+				throw new Error("FFmpeg binary not found. Please download it first.")
+			}
 		}
 
 		return Bun.spawn([this.#binaryFFmpeg, ...cmd])
@@ -63,6 +74,7 @@ export class YtDlpInstance {
 			.download(url)
 			.addArgs(...preset)
 			.output(outputPath)
+			.on("progress", console.log)
 
 		return result.filePaths
 	}

@@ -1,6 +1,7 @@
 import type { MyRPC } from "../shared/types/rpc"
 
 import { BrowserWindow, Updater, Screen, BrowserView } from "electrobun/bun"
+import { $fetch } from "ofetch"
 
 import { YtDlpInstance } from "./yt-dlp"
 
@@ -13,7 +14,11 @@ const getMainViewUrl = async () => {
 	const channel = await Updater.localInfo.channel()
 	if (channel === "dev") {
 		try {
-			await fetch(DEV_SERVER_URL, { method: "HEAD" })
+			await $fetch(DEV_SERVER_URL, {
+				method: "HEAD",
+				retry: 5,
+				retryDelay: 1e3,
+			})
 			console.log(`HMR enabled: Using Nuxt dev server at ${DEV_SERVER_URL}`)
 			return DEV_SERVER_URL
 		} catch {
