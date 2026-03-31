@@ -6,7 +6,7 @@ type DownloadChannel = "stable" | "nightly"
 export type MyRPC = {
 	bun: RPCSchema<{
 		requests: {
-			getVersion: {
+			getBinaryVersion: {
 				params: { type: "yt-dlp" | "ffmpeg" }
 				response: { output: string }
 			}
@@ -34,11 +34,11 @@ export type MyRPC = {
 				}
 				response: { filePaths: string[] }
 			}
-			getGuiVersion: {
+			getDlpGuiVersion: {
 				params: {}
 				response: { output: string }
 			}
-			checkForUpdate: {
+			checkForDlpGuiUpdate: {
 				params: {}
 				response: {}
 			}
@@ -46,7 +46,7 @@ export type MyRPC = {
 				params: {}
 				response: { output: string }
 			}
-			getCustomFolderPath: {
+			showFolderPicker: {
 				params: {}
 				response: { output?: string }
 			}

@@ -44,7 +44,7 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 	maxRequestTime: 60e3,
 	handlers: {
 		requests: {
-			getVersion: async ({ type }) => {
+			getBinaryVersion: async ({ type }) => {
 				switch (type) {
 					case "yt-dlp": {
 						return {
@@ -84,12 +84,12 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 					}),
 				}
 			},
-			getGuiVersion: async () => {
+			getDlpGuiVersion: async () => {
 				return {
 					output: process.env.DLPGUI_VERSION ?? "dev",
 				}
 			},
-			checkForUpdate: async () => {
+			checkForDlpGuiUpdate: async () => {
 				const updateInfo = await Updater.checkForUpdate()
 				if (updateInfo.updateAvailable) {
 					await Updater.downloadUpdate()
@@ -101,7 +101,7 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 					output: platform(),
 				}
 			},
-			getCustomFolderPath: async () => {
+			showFolderPicker: async () => {
 				const paths = await Utils.openFileDialog({
 					startingFolder: Utils.paths.desktop,
 					canChooseFiles: false,

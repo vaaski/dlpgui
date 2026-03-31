@@ -14,7 +14,7 @@ const getPathLast = (path: string) => {
 
 const pickDirectory = async () => {
 	pickerOpen.value = true
-	const path = await electrobun.rpc?.request("getCustomFolderPath", {})
+	const path = await electrobun.rpc?.request("showFolderPicker", {})
 	pickerOpen.value = false
 
 	if (path?.output) {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 onMounted(async () => {
-	await electrobun.rpc?.request("checkForUpdate", {})
+	await electrobun.rpc?.request("checkForDlpGuiUpdate", {})
 	await electrobun.rpc?.request("ensureBinaries", {
 		channel: ls("ytdlpChannel") ?? "stable",
 	})

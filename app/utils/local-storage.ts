@@ -31,7 +31,7 @@ export function useLs<L extends keyof Stored>(
 ): Ref<Stored[L]>
 export function useLs<L extends keyof Stored>(
 	key: L,
-	defaultValue: undefined,
+	defaultValue?: undefined,
 ): Ref<Stored[L] | undefined>
 export function useLs<L extends keyof Stored>(
 	key: L,

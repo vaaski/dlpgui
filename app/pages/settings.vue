@@ -9,7 +9,7 @@ type Setting = {
 }
 
 const getVersion = async (type: "yt-dlp" | "ffmpeg") => {
-	const version = await electrobun.rpc?.request("getVersion", {
+	const version = await electrobun.rpc?.request("getBinaryVersion", {
 		type,
 	})
 
@@ -49,7 +49,7 @@ const settings = computed(() => {
 const version = ref<string>()
 
 onMounted(async () => {
-	const versionResponse = await electrobun.rpc?.request("getGuiVersion", {})
+	const versionResponse = await electrobun.rpc?.request("getDlpGuiVersion", {})
 
 	version.value = versionResponse?.output
 })
