@@ -9,6 +9,11 @@ export default {
 	build: {
 		bun: {
 			entrypoint: "bun/index.ts",
+			define: {
+				"process.env.DLPGUI_VERSION": JSON.stringify(
+					process.env.DLPGUI_VERSION,
+				),
+			},
 		},
 		copy: {
 			".output/public": "views/mainview",
