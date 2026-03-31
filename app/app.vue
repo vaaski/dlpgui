@@ -44,7 +44,18 @@ onMounted(async () => {
 					icon="lucide:settings"
 					size="sm"
 					class="opacity-75"
+					v-if="$route.name !== 'settings'"
 				/>
+				<UButton
+					to="/download"
+					color="neutral"
+					variant="ghost"
+					icon="lucide:house"
+					size="sm"
+					class="opacity-75"
+					v-if="$route.name !== 'download'"
+				/>
+
 				<!-- <UButton
 					color="neutral"
 					variant="ghost"
