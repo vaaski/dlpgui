@@ -2,8 +2,8 @@ import type { DownloadChannel } from "../shared/types/rpc"
 
 import { YtDlp, type VideoProgress } from "ytdlp-nodejs"
 
-import { downloadFFmpeg, findFFmpegBinary } from "./yt-dlp-utils/ffmpeg"
-import { downloadYtDlp, findYtdlpBinary } from "./yt-dlp-utils/yt-dlp"
+import { downloadFFmpeg, findFFmpegBinary } from "./binary-utils/ffmpeg"
+import { downloadYtDlp, findYtdlpBinary } from "./binary-utils/yt-dlp"
 
 export class YtDlpInstance {
 	#binary: string | undefined
@@ -22,7 +22,7 @@ export class YtDlpInstance {
 			this.#binary = findYtdlpBinary()
 
 			if (!this.#binary) {
-				throw new Error("Ytdlp binary not found. Please download it first.")
+				throw new Error("yt-dlp binary not found. Please download it first.")
 			}
 		}
 

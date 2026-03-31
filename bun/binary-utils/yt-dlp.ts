@@ -35,7 +35,7 @@ const PLATFORM_MAPPINGS: Record<string, Record<string, string>> = {
 	},
 }
 
-function getYtdlpFilename(): string {
+const getYtdlpFilename = () => {
 	const platform = process.platform as string
 	const arch = process.arch as string
 
@@ -48,7 +48,7 @@ function getYtdlpFilename(): string {
 	return filename
 }
 
-export async function deleteBinary() {
+export const deleteBinary = async () => {
 	const fileName = path.join(BIN_DIR, getYtdlpFilename())
 	await unlink(fileName)
 
@@ -58,7 +58,7 @@ export async function deleteBinary() {
 	}
 }
 
-async function downloadYtdlpZip(channel: DownloadChannel): Promise<string> {
+const downloadYtdlpZip = async (channel: DownloadChannel) => {
 	const fileName = getYtdlpFilename()
 	const fileNameZip = fileName + ".zip"
 
@@ -97,7 +97,7 @@ async function downloadYtdlpZip(channel: DownloadChannel): Promise<string> {
 	}
 }
 
-export async function downloadYtDlp(channel: DownloadChannel): Promise<string> {
+export const downloadYtDlp = async (channel: DownloadChannel) => {
 	const fileName = getYtdlpFilename()
 
 	// for apple silicon, download the zip file instead of the binary
@@ -134,8 +134,8 @@ export async function downloadYtDlp(channel: DownloadChannel): Promise<string> {
 	}
 }
 
-async function sha256File(filePath: string): Promise<string> {
-	return new Promise((resolve, reject) => {
+const sha256File = async (filePath: string) => {
+	return new Promise<string>((resolve, reject) => {
 		const hash = crypto.createHash("sha256")
 		const stream = fs.createReadStream(filePath)
 		stream.on("data", (data) => hash.update(data))
@@ -144,10 +144,7 @@ async function sha256File(filePath: string): Promise<string> {
 	})
 }
 
-async function getChecksum(
-	channel: DownloadChannel,
-	fileName: string,
-): Promise<string | undefined> {
+const getChecksum = async (channel: DownloadChannel, fileName: string) => {
 	try {
 		const checksums = await fetchText(`${downloadBase(channel)}/SHA2-256SUMS`)
 		const lines = checksums.split(/\r?\n/)
@@ -160,9 +157,7 @@ async function getChecksum(
 	}
 }
 
-export async function downloadYtDlpVerified(
-	channel: DownloadChannel,
-): Promise<{ path: string; verified: boolean; checksum?: string }> {
+export const downloadYtDlpVerified = async (channel: DownloadChannel) => {
 	const outputPath = await downloadYtDlp(channel)
 	const fileName = path.basename(outputPath)
 	const checksum = await getChecksum(channel, fileName)
@@ -180,7 +175,7 @@ export async function downloadYtDlpVerified(
 	return { path: outputPath, verified: true, checksum }
 }
 
-export function findYtdlpBinary() {
+export const findYtdlpBinary = () => {
 	const platform = process.platform as string
 	const arch = process.arch as string
 

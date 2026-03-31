@@ -26,7 +26,7 @@ const PLATFORM_MAPPINGS: Record<string, Record<string, string[]>> = {
 	},
 }
 
-function getBuildsArray(): string[] {
+const getBuildsArray = () => {
 	const platform = process.platform as string
 	const arch = process.arch as string
 
@@ -39,7 +39,7 @@ function getBuildsArray(): string[] {
 	return PLATFORM_MAPPINGS[platform][arch]
 }
 
-export async function downloadFFmpeg(out?: string) {
+export const downloadFFmpeg = async (out?: string) => {
 	const OUT_DIR = out || BIN_DIR
 
 	const ffmpegBinary = findFFmpegBinary()
@@ -86,7 +86,7 @@ export async function downloadFFmpeg(out?: string) {
 	}
 }
 
-export function findFFmpegBinary() {
+export const findFFmpegBinary = () => {
 	try {
 		const buildsArr = getBuildsArray()
 

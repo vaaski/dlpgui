@@ -12,8 +12,8 @@ import {
 } from "electrobun/bun"
 import { $fetch } from "ofetch"
 
+import { deleteBinary } from "./binary-utils/yt-dlp"
 import { YtDlpInstance } from "./yt-dlp"
-import { deleteBinary } from "./yt-dlp-utils/yt-dlp"
 
 const DEV_SERVER_PORT = 3000
 const DEV_SERVER_URL = `http://localhost:${DEV_SERVER_PORT}`
