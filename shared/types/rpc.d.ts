@@ -24,8 +24,16 @@ export type MyRPC = {
 				params: {}
 				response: {}
 			}
+			getPlatform: {
+				params: {}
+				response: { output: string }
+			}
 		}
-		messages: {}
+		messages: {
+			windowMinimize: {}
+			windowMaximize: {}
+			windowClose: {}
+		}
 	}>
 	webview: RPCSchema<{
 		requests: {}

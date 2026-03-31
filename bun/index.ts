@@ -1,5 +1,7 @@
 import type { MyRPC } from "../shared/types/rpc"
 
+import { platform } from "node:os"
+
 import {
 	BrowserWindow,
 	Updater,
@@ -83,8 +85,23 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 					await Updater.applyUpdate()
 				}
 			},
+			getPlatform: async () => {
+				return {
+					output: platform(),
+				}
+			},
 		},
-		messages: {},
+		messages: {
+			windowMinimize: () => mainWindow.minimize(),
+			windowMaximize: () => {
+				if (mainWindow.isMaximized()) {
+					mainWindow.unmaximize()
+				} else {
+					mainWindow.maximize()
+				}
+			},
+			windowClose: () => mainWindow.close(),
+		},
 	},
 })
 
@@ -113,8 +130,7 @@ const display = Screen.getPrimaryDisplay()
 const windowWidth = 800
 const windowHeight = 600
 
-// const mainWindow =
-new BrowserWindow({
+const mainWindow = new BrowserWindow({
 	title: "dlpgui",
 	url,
 	rpc,
@@ -123,5 +139,9 @@ new BrowserWindow({
 		y: display.bounds.y + (display.bounds.height - windowHeight) / 2,
 		width: windowWidth,
 		height: windowHeight,
+	},
+	titleBarStyle: platform() === "darwin" ? "default" : "hidden",
+	styleMask: {
+		Resizable: false,
 	},
 })
