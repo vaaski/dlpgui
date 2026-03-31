@@ -10,7 +10,8 @@
 		"nuxt:dev": "nuxt dev",
 		"nuxt:generate": "nuxt generate",
 		"postinstall": "nuxt prepare",
-		"preview": "nuxt preview"
+		"preview": "nuxt preview",
+		"typecheck": "nuxt typecheck"
 	},
 	"dependencies": {
 		"@nuxt/ui": "4.6.0",
@@ -28,7 +29,8 @@
 		"concurrently": "^9.2.1",
 		"oxfmt": "^0.42.0",
 		"oxlint": "^1.57.0",
-		"oxlint-tsgolint": "^0.18.1"
+		"oxlint-tsgolint": "^0.18.1",
+		"vue-tsc": "^3.2.6"
 	},
 	"peerDependencies": {
 		"typescript": "6"
