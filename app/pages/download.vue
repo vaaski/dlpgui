@@ -96,6 +96,18 @@ watch(state, () => {
 	ls("lastLocation", state.location)
 })
 
+watch(
+	() => state.url,
+	(newUrl) => {
+		const result = youtubeIdRegex.exec(newUrl)
+
+		if (result) {
+			const [, id] = result
+			state.url = `https://youtu.be/${id}`
+		}
+	},
+)
+
 const progress = ref<VideoProgress>()
 
 onMounted(() => {
