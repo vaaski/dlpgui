@@ -1,4 +1,5 @@
 import type { RPCSchema } from "electrobun"
+import type { VideoProgress } from "ytdlp-nodejs"
 
 export type MyRPC = {
 	bun: RPCSchema<{
@@ -20,6 +21,10 @@ export type MyRPC = {
 	}>
 	webview: RPCSchema<{
 		requests: {}
-		messages: {}
+		messages: {
+			progress: {
+				params: { progress: VideoProgress }
+			}
+		}
 	}>
 }

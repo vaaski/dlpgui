@@ -6,5 +6,8 @@
 	"could not get version": "Could not get {type} version.",
 	"get version": "Get {type} version",
 	"error": "error",
-	"language": "language"
+	"language": "language",
+	"execute": "execute",
+	"ETA": "ETA",
+	"downloaded": "downloaded"
 }

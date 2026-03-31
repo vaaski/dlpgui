@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { FormSubmitEvent, SelectItem } from "@nuxt/ui"
+import type { VideoProgress } from "ytdlp-nodejs"
 
 import z from "zod"
 
@@ -48,7 +49,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
 
 	if (!result) {
 		toast.add({
-			title: "Error",
+			title: $t("error"),
 			description: "Could not download file",
 			color: "error",
 		})
@@ -56,11 +57,19 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
 	}
 
 	toast.add({
-		title: "Downloaded",
+		title: $t("downloaded"),
 		description: result.filePaths.join("\n"),
-		color: "info",
+		color: "success",
 	})
 }
+
+const progress = ref<VideoProgress>()
+
+onMounted(() => {
+	electrobun.rpc?.addMessageListener("progress", ({ params }) => {
+		progress.value = params.progress
+	})
+})
 </script>
 
 <template>
@@ -89,6 +98,8 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
 					{{ $t("download") }}
 				</UButton>
 			</UForm>
+
+			<ProgressDisplay class="mt-6" :progress="progress" v-if="progress" />
 		</UCard>
 	</div>
 </template>

@@ -1,6 +1,12 @@
 import type { MyRPC } from "../shared/types/rpc"
 
-import { BrowserWindow, Updater, Screen, BrowserView } from "electrobun/bun"
+import {
+	BrowserWindow,
+	Updater,
+	Screen,
+	BrowserView,
+	ApplicationMenu,
+} from "electrobun/bun"
 import { $fetch } from "ofetch"
 
 import { YtDlpInstance } from "./yt-dlp"
@@ -55,13 +61,39 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 			},
 			download: async ({ url, outputPath, preset }) => {
 				return {
-					filePaths: await ytdlp.download(url, outputPath, preset),
+					filePaths: await ytdlp.download(
+						url,
+						outputPath,
+						preset,
+						(progress) => {
+							rpc.send("progress", { params: { progress } })
+						},
+					),
 				}
 			},
 		},
 		messages: {},
 	},
 })
+
+ApplicationMenu.setApplicationMenu([
+	{
+		submenu: [{ label: "Quit", role: "quit" }],
+	},
+	{
+		label: "Edit",
+		submenu: [
+			{ role: "undo" },
+			{ role: "redo" },
+			{ type: "separator" },
+			{ role: "cut" },
+			{ role: "copy" },
+			{ role: "paste" },
+			{ role: "delete" },
+			{ role: "selectAll" },
+		],
+	},
+])
 
 const url = await getMainViewUrl()
 

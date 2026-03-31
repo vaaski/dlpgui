@@ -1,4 +1,4 @@
-import { YtDlp } from "ytdlp-nodejs"
+import { YtDlp, type VideoProgress } from "ytdlp-nodejs"
 
 import { downloadFFmpeg, findFFmpegBinary } from "./yt-dlp-utils/ffmpeg"
 import { downloadYtDlp, findYtdlpBinary } from "./yt-dlp-utils/yt-dlp"
@@ -69,12 +69,17 @@ export class YtDlpInstance {
 		this.#binaryFFmpeg = ffmpeg
 	}
 
-	download = async (url: string, outputPath: string, preset: string[]) => {
+	download = async (
+		url: string,
+		outputPath: string,
+		preset: string[],
+		onProgress: (progress: VideoProgress) => void,
+	) => {
 		const result = await this.ytDlp
 			.download(url)
 			.addArgs(...preset)
 			.output(outputPath)
-			.on("progress", console.log)
+			.on("progress", onProgress)
 
 		return result.filePaths
 	}

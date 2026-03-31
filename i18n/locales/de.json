@@ -7,5 +7,7 @@
 	"get version": "{type} version ermitteln",
 	"error": "Fehler",
 	"language": "Sprache",
-	"execute": "Ausführen"
+	"execute": "Ausführen",
+	"ETA": "Verbleibend",
+	"downloaded": "Heruntergeladen"
 }
