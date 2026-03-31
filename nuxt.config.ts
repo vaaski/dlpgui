@@ -25,4 +25,10 @@ export default defineNuxtConfig({
 			{ code: "de", name: "Deutsch", file: "de.json" },
 		],
 	},
+
+	router: {
+		options: {
+			hashMode: true,
+		},
+	},
 })
