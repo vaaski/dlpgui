@@ -41,10 +41,59 @@ function getYtdlpFilename(): string {
 	return filename
 }
 
+async function downloadYtdlpZip(out?: string): Promise<string> {
+	const OUT_DIR = out || BIN_DIR
+	const fileName = getYtdlpFilename()
+	const fileNameZip = fileName + ".zip"
+
+	const downloadUrl: string = `${DOWNLOAD_BASE_URL}/${fileNameZip}`
+	const outputPath = path.join(OUT_DIR, fileName)
+	const outputPathZip = path.join(OUT_DIR, fileNameZip)
+	const outputPathInternals = path.join(OUT_DIR, "_internal")
+
+	const isExists =
+		fs.existsSync(outputPath) && fs.existsSync(outputPathInternals)
+	if (isExists) return outputPath
+
+	console.log(`Downloading yt-dlp...`, downloadUrl)
+
+	if (!fs.existsSync(OUT_DIR)) {
+		fs.mkdirSync(OUT_DIR, { recursive: true })
+	}
+
+	try {
+		await downloadFile(downloadUrl, outputPathZip)
+
+		await Bun.$`unzip -o ${outputPathZip} -d ${OUT_DIR}`
+		fs.unlinkSync(outputPathZip)
+
+		console.log(`yt-dlp downloaded successfully to: ${outputPath}`)
+		// Set executable permissions (Unix-like systems only)
+		if (process.platform !== "win32") {
+			fs.chmodSync(outputPathInternals, 0o755)
+			fs.chmodSync(outputPath, 0o755)
+		}
+
+		return outputPath
+	} catch (error) {
+		console.error(`Download failed: ${error}`)
+		throw error
+	}
+}
+
 export async function downloadYtDlp(out?: string): Promise<string> {
 	const OUT_DIR = out || BIN_DIR
 
 	const fileName = getYtdlpFilename()
+
+	const useZip = process.platform === "darwin" && process.arch === "arm64"
+
+	// for apple silicon, download the zip file instead of the binary
+	// https://github.com/yt-dlp/yt-dlp/issues/10425
+	if (useZip) {
+		return downloadYtdlpZip(out)
+	}
+
 	const downloadUrl: string = `${DOWNLOAD_BASE_URL}/${fileName}`
 
 	const outputPath = path.join(OUT_DIR, fileName)

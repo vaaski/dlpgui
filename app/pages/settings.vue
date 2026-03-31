@@ -52,8 +52,8 @@ onMounted(async () => {
 </script>
 
 <template>
-	<div class="flex flex-1 flex-col place-content-between">
-		<UCard class="m-4">
+	<div class="flex flex-1 flex-col place-content-between gap-4 p-4">
+		<UCard>
 			<div
 				v-for="setting in settings"
 				:key="setting.label"
@@ -66,6 +66,7 @@ onMounted(async () => {
 					<UButton
 						@click="setting.executor"
 						loading-auto
+						variant="soft"
 						v-if="typeof setting.executor === 'function'"
 					>
 						{{ $t("execute") }}
