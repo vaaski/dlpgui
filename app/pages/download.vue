@@ -5,6 +5,7 @@ import type { VideoProgress } from "ytdlp-nodejs"
 import z from "zod"
 
 const toast = useToast()
+const filePickerOpen = ref(false)
 
 const formats = ref([
 	{
@@ -97,6 +98,7 @@ onMounted(() => {
 				:state="state"
 				class="space-y-4"
 				@submit="onSubmit"
+				:disabled="filePickerOpen"
 			>
 				<UFormField :label="$t('url')" name="url">
 					<UInput
@@ -109,7 +111,10 @@ onMounted(() => {
 
 				<div class="grid w-full grid-cols-2 gap-2">
 					<UFormField :label="$t('location')" name="location">
-						<LocationPicker v-model="state.location" />
+						<LocationPicker
+							v-model="state.location"
+							v-model:picker-open="filePickerOpen"
+						/>
 					</UFormField>
 
 					<UFormField label="Format" name="format">
@@ -122,12 +127,20 @@ onMounted(() => {
 					</UFormField>
 				</div>
 
-				<UButton type="submit" loading-auto icon="lucide:rocket">
+				<UButton
+					type="submit"
+					loading-auto
+					icon="lucide:rocket"
+					:disabled="filePickerOpen"
+					class="mt-2 w-full"
+					:variant="state.url.length > 0 ? 'solid' : 'subtle'"
+					size="lg"
+				>
 					{{ $t("download") }}
 				</UButton>
 			</UForm>
 
-			<ProgressDisplay class="mt-6" :progress="progress" v-if="progress" />
+			<ProgressDisplay :progress="progress" />
 		</UCard>
 	</div>
 </template>

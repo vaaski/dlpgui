@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { SelectItem } from "@nuxt/ui"
 
-const modelValue = defineModel<string>()
+const location = defineModel<string>()
+const pickerOpen = defineModel("pickerOpen", { default: false })
 
 const toast = useToast()
 
@@ -12,11 +13,13 @@ const getPathLast = (path: string) => {
 }
 
 const pickDirectory = async () => {
+	pickerOpen.value = true
 	const path = await electrobun.rpc?.request("getCustomFolderPath", {})
+	pickerOpen.value = false
 
 	if (path?.output) {
 		customLocations.value = [...(customLocations.value ?? []), path.output]
-		modelValue.value = path.output
+		location.value = path.output
 		console.log(path.output)
 	} else {
 		toast.add({
@@ -25,7 +28,7 @@ const pickDirectory = async () => {
 			color: "error",
 		})
 
-		modelValue.value = "desktop"
+		location.value = "desktop"
 	}
 }
 
@@ -35,7 +38,7 @@ const deleteCustomLocation = (path?: string) => {
 
 	customLocations.value = customLocations.value.filter((item) => item !== path)
 
-	modelValue.value = "desktop"
+	location.value = "desktop"
 
 	toast.add({
 		title: $t("deleted", { target: getPathLast(path) }),
@@ -46,32 +49,32 @@ const deleteCustomLocation = (path?: string) => {
 const locations = computed(() => {
 	const items: Extract<SelectItem, object>[] = [
 		{
-			label: "Desktop",
+			label: $t("Desktop"),
 			value: "desktop",
 			icon: "lucide:house",
 		},
 		{
-			label: "Downloads",
+			label: $t("Downloads"),
 			value: "downloads",
 			icon: "lucide:download",
 		},
 		{
-			label: "Documents",
+			label: $t("Documents"),
 			value: "documents",
 			icon: "lucide:paperclip",
 		},
 		{
-			label: "Music",
+			label: $t("Music"),
 			value: "music",
 			icon: "lucide:music",
 		},
 		{
-			label: "Pictures",
+			label: $t("Pictures"),
 			value: "pictures",
 			icon: "lucide:image",
 		},
 		{
-			label: "Videos",
+			label: $t("Videos"),
 			value: "videos",
 			icon: "lucide:video",
 		},
@@ -108,13 +111,13 @@ const locations = computed(() => {
 })
 
 const locationsIcon = computed(() => {
-	return locations.value.find((item) => item.value === modelValue.value)?.icon
+	return locations.value.find((item) => item.value === location.value)?.icon
 })
 </script>
 
 <template>
 	<USelect
-		v-model="modelValue"
+		v-model="location"
 		:items="locations"
 		:icon="locationsIcon"
 		class="w-full"

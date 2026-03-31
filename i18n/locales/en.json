@@ -1,5 +1,5 @@
 {
-	"download": "download",
+	"download": "Download",
 	"best quality": "best quality",
 	"url": "URL",
 	"setting up...": "Setting up...",
@@ -13,5 +13,12 @@
 	"no custom folder selected": "No custom folder selected.",
 	"deleted": "Deleted {target}",
 	"custom": "Custom",
-	"location": "Location"
+	"location": "Location",
+	"loading...": "Loading...",
+	"Desktop": "Desktop",
+	"Downloads": "Downloads",
+	"Documents": "Documents",
+	"Music": "Music",
+	"Pictures": "Pictures",
+	"Videos": "Videos"
 }

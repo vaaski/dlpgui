@@ -13,5 +13,12 @@
 	"no custom folder selected": "Kein benutzerdefiniertes Verzeichnis ausgewählt.",
 	"deleted": "{target} gelöscht",
 	"custom": "Benutzerdefiniert",
-	"location": "Speicherort"
+	"location": "Speicherort",
+	"loading...": "Lädt...",
+	"Desktop": "Desktop",
+	"Downloads": "Downloads",
+	"Documents": "Dokumente",
+	"Music": "Musik",
+	"Pictures": "Bilder",
+	"Videos": "Videos"
 }
