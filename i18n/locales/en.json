@@ -9,5 +9,9 @@
 	"language": "language",
 	"execute": "execute",
 	"ETA": "ETA",
-	"downloaded": "downloaded"
+	"downloaded": "downloaded",
+	"no custom folder selected": "No custom folder selected.",
+	"deleted": "Deleted {target}",
+	"custom": "Custom",
+	"location": "Location"
 }

@@ -9,5 +9,9 @@
 	"language": "Sprache",
 	"execute": "Ausführen",
 	"ETA": "Verbleibend",
-	"downloaded": "Heruntergeladen"
+	"downloaded": "Heruntergeladen",
+	"no custom folder selected": "Kein benutzerdefiniertes Verzeichnis ausgewählt.",
+	"deleted": "{target} gelöscht",
+	"custom": "Benutzerdefiniert",
+	"location": "Speicherort"
 }

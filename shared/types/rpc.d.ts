@@ -13,7 +13,19 @@ export type MyRPC = {
 				response: { success: boolean }
 			}
 			download: {
-				params: { url: string; outputPath: string; preset: string[] }
+				params: {
+					url: string
+					outputPath:
+						| "documents"
+						| "desktop"
+						| "downloads"
+						| "music"
+						| "pictures"
+						| "videos"
+						| ({} & string)
+
+					preset: string[]
+				}
 				response: { filePaths: string[] }
 			}
 			getGuiVersion: {
@@ -27,6 +39,10 @@ export type MyRPC = {
 			getPlatform: {
 				params: {}
 				response: { output: string }
+			}
+			getCustomFolderPath: {
+				params: {}
+				response: { output?: string }
 			}
 		}
 		messages: {

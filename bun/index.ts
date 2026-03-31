@@ -63,7 +63,12 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 				return { success: true }
 			},
 			download: async ({ url, outputPath, preset }) => {
-				const path = Utils.paths.desktop
+				let path = outputPath
+
+				if (outputPath in Utils.paths) {
+					path = Utils.paths[outputPath as keyof typeof Utils.paths]
+				}
+
 				return {
 					filePaths: await ytdlp.download(url, path, preset, (progress) => {
 						rpc.send("progress", { params: { progress } })
@@ -86,6 +91,16 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 				return {
 					output: platform(),
 				}
+			},
+			getCustomFolderPath: async () => {
+				const paths = await Utils.openFileDialog({
+					startingFolder: Utils.paths.desktop,
+					canChooseFiles: false,
+					canChooseDirectory: true,
+					allowsMultipleSelection: false,
+				})
+
+				return { output: paths.at(0) }
 			},
 		},
 		messages: {
