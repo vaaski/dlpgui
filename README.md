@@ -1,75 +1,35 @@
-# Nuxt Minimal Starter
+# dlpgui
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Minimal desktop yt-dlp GUI project built with Electrobun, Nuxt 4, and Nuxt UI.
 
-## Setup
+This was mainly an exercise to get hands-on with the new Electrobun framework and the Oxc toolchain.
 
-Make sure to install dependencies:
+## Stack
+
+- Electrobun
+- Nuxt 4
+- Nuxt UI
+- Bun
+- Oxc (`oxlint` and `oxfmt`)
+
+## Development
+
+Install dependencies:
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
 bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Run the app in development:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
 bun run dev
 ```
 
-## Production
+## Build
 
-Build the application for production:
+Create the generated Nuxt frontend and bundle the desktop app:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
 bun run build
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
