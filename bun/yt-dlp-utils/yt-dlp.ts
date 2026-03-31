@@ -1,12 +1,19 @@
+import type { DownloadChannel } from "../../shared/types/rpc"
+
 import crypto from "crypto"
 import * as fs from "fs"
+import { unlink } from "fs/promises"
 import * as path from "path"
 
 import { BIN_DIR } from "./paths"
 import { downloadFile, fetchText } from "./request"
 
-const DOWNLOAD_BASE_URL =
-	"https://github.com/yt-dlp/yt-dlp/releases/latest/download"
+const downloadBase = (channel: DownloadChannel) =>
+	channel === "stable"
+		? "https://github.com/yt-dlp/yt-dlp/releases/latest/download"
+		: "https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download"
+
+const useZip = () => process.platform === "darwin" && process.arch === "arm64"
 
 const PLATFORM_MAPPINGS: Record<string, Record<string, string>> = {
 	win32: {
@@ -41,30 +48,39 @@ function getYtdlpFilename(): string {
 	return filename
 }
 
-async function downloadYtdlpZip(out?: string): Promise<string> {
-	const OUT_DIR = out || BIN_DIR
+export async function deleteBinary() {
+	const fileName = path.join(BIN_DIR, getYtdlpFilename())
+	await unlink(fileName)
+
+	if (useZip()) {
+		const internalsPath = path.join(BIN_DIR, "_internal")
+		await unlink(internalsPath)
+	}
+}
+
+async function downloadYtdlpZip(channel: DownloadChannel): Promise<string> {
 	const fileName = getYtdlpFilename()
 	const fileNameZip = fileName + ".zip"
 
-	const downloadUrl: string = `${DOWNLOAD_BASE_URL}/${fileNameZip}`
-	const outputPath = path.join(OUT_DIR, fileName)
-	const outputPathZip = path.join(OUT_DIR, fileNameZip)
-	const outputPathInternals = path.join(OUT_DIR, "_internal")
+	const downloadUrl: string = `${downloadBase(channel)}/${fileNameZip}`
+	const outputPath = path.join(BIN_DIR, fileName)
+	const outputPathZip = path.join(BIN_DIR, fileNameZip)
+	const outputPathInternals = path.join(BIN_DIR, "_internal")
 
-	const isExists =
+	const preexisting =
 		fs.existsSync(outputPath) && fs.existsSync(outputPathInternals)
-	if (isExists) return outputPath
+	if (preexisting) return outputPath
 
 	console.log(`Downloading yt-dlp...`, downloadUrl)
 
-	if (!fs.existsSync(OUT_DIR)) {
-		fs.mkdirSync(OUT_DIR, { recursive: true })
+	if (!fs.existsSync(BIN_DIR)) {
+		fs.mkdirSync(BIN_DIR, { recursive: true })
 	}
 
 	try {
 		await downloadFile(downloadUrl, outputPathZip)
 
-		await Bun.$`unzip -o ${outputPathZip} -d ${OUT_DIR}`
+		await Bun.$`unzip -o ${outputPathZip} -d ${BIN_DIR}`
 		fs.unlinkSync(outputPathZip)
 
 		console.log(`yt-dlp downloaded successfully to: ${outputPath}`)
@@ -81,30 +97,26 @@ async function downloadYtdlpZip(out?: string): Promise<string> {
 	}
 }
 
-export async function downloadYtDlp(out?: string): Promise<string> {
-	const OUT_DIR = out || BIN_DIR
-
+export async function downloadYtDlp(channel: DownloadChannel): Promise<string> {
 	const fileName = getYtdlpFilename()
-
-	const useZip = process.platform === "darwin" && process.arch === "arm64"
 
 	// for apple silicon, download the zip file instead of the binary
 	// https://github.com/yt-dlp/yt-dlp/issues/10425
-	if (useZip) {
-		return downloadYtdlpZip(out)
+	if (useZip()) {
+		return downloadYtdlpZip(channel)
 	}
 
-	const downloadUrl: string = `${DOWNLOAD_BASE_URL}/${fileName}`
+	const downloadUrl: string = `${downloadBase(channel)}/${fileName}`
 
-	const outputPath = path.join(OUT_DIR, fileName)
+	const outputPath = path.join(BIN_DIR, fileName)
 
-	const isExists = fs.existsSync(outputPath)
-	if (isExists) return outputPath
+	const preexisting = fs.existsSync(outputPath)
+	if (preexisting) return outputPath
 
 	console.log(`Downloading yt-dlp...`, downloadUrl)
 
-	if (!fs.existsSync(OUT_DIR)) {
-		fs.mkdirSync(OUT_DIR, { recursive: true })
+	if (!fs.existsSync(BIN_DIR)) {
+		fs.mkdirSync(BIN_DIR, { recursive: true })
 	}
 
 	try {
@@ -132,9 +144,12 @@ async function sha256File(filePath: string): Promise<string> {
 	})
 }
 
-async function getChecksum(fileName: string): Promise<string | undefined> {
+async function getChecksum(
+	channel: DownloadChannel,
+	fileName: string,
+): Promise<string | undefined> {
 	try {
-		const checksums = await fetchText(`${DOWNLOAD_BASE_URL}/SHA2-256SUMS`)
+		const checksums = await fetchText(`${downloadBase(channel)}/SHA2-256SUMS`)
 		const lines = checksums.split(/\r?\n/)
 		const match = lines.find((line) => line.includes(fileName))
 		if (!match) return undefined
@@ -146,11 +161,11 @@ async function getChecksum(fileName: string): Promise<string | undefined> {
 }
 
 export async function downloadYtDlpVerified(
-	out?: string,
+	channel: DownloadChannel,
 ): Promise<{ path: string; verified: boolean; checksum?: string }> {
-	const outputPath = await downloadYtDlp(out)
+	const outputPath = await downloadYtDlp(channel)
 	const fileName = path.basename(outputPath)
-	const checksum = await getChecksum(fileName)
+	const checksum = await getChecksum(channel, fileName)
 	if (!checksum) {
 		return { path: outputPath, verified: false }
 	}

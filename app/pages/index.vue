@@ -1,7 +1,9 @@
 <script setup lang="ts">
 onMounted(async () => {
 	await electrobun.rpc?.request("checkForUpdate", {})
-	await electrobun.rpc?.request("ensureBinaries", {})
+	await electrobun.rpc?.request("ensureBinaries", {
+		channel: ls("ytdlpChannel") ?? "stable",
+	})
 	navigateTo("/download", { replace: true })
 })
 </script>

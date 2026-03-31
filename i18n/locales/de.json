@@ -4,7 +4,7 @@
 	"url": "Adresse",
 	"setting up...": "Vorbereitung...",
 	"could not get version": "Konnte keine Version für {type} ermitteln.",
-	"get version": "{type} version ermitteln",
+	"get version": "{type} Version ermitteln",
 	"error": "Fehler",
 	"language": "Sprache",
 	"execute": "Ausführen",
@@ -21,5 +21,7 @@
 	"Music": "Musik",
 	"Pictures": "Bilder",
 	"Videos": "Videos",
-	"Paste": "Einfügen"
+	"Paste": "Einfügen",
+	"yt-dlp channel": "yt-dlp Entwicklungsstand",
+	"switched to channel": "Zum {channel} Entwicklungsstand gewechselt"
 }

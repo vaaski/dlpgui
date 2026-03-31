@@ -1,6 +1,8 @@
 import type { RPCSchema } from "electrobun"
 import type { VideoProgress } from "ytdlp-nodejs"
 
+type DownloadChannel = "stable" | "nightly"
+
 export type MyRPC = {
 	bun: RPCSchema<{
 		requests: {
@@ -9,6 +11,10 @@ export type MyRPC = {
 				response: { output: string }
 			}
 			ensureBinaries: {
+				params: { channel: DownloadChannel }
+				response: { success: boolean }
+			}
+			deleteYtDlpBinary: {
 				params: {}
 				response: { success: boolean }
 			}

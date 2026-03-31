@@ -13,6 +13,7 @@ import {
 import { $fetch } from "ofetch"
 
 import { YtDlpInstance } from "./yt-dlp"
+import { deleteBinary } from "./yt-dlp-utils/yt-dlp"
 
 const DEV_SERVER_PORT = 3000
 const DEV_SERVER_URL = `http://localhost:${DEV_SERVER_PORT}`
@@ -58,9 +59,17 @@ const rpc = BrowserView.defineRPC<MyRPC>({
 					}
 				}
 			},
-			ensureBinaries: async () => {
-				await ytdlp.ensureBinaries()
+			ensureBinaries: async ({ channel }) => {
+				await ytdlp.ensureBinaries(channel)
 				return { success: true }
+			},
+			deleteYtDlpBinary: async () => {
+				try {
+					await deleteBinary()
+					return { success: true }
+				} catch {
+					return { success: false }
+				}
 			},
 			download: async ({ url, outputPath, preset }) => {
 				let path = outputPath

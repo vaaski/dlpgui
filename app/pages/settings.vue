@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { SelectItem } from "@nuxt/ui"
+
 const toast = useToast()
 
 type Setting = {
@@ -27,20 +29,22 @@ const getVersion = async (type: "yt-dlp" | "ffmpeg") => {
 	})
 }
 
-const settings = [
-	{
-		label: $t("language"),
-		executor: "language",
-	},
-	{
-		label: $t("get version", { type: "yt-dlp" }),
-		executor: () => getVersion("yt-dlp"),
-	},
-	{
-		label: $t("get version", { type: "ffmpeg" }),
-		executor: () => getVersion("ffmpeg"),
-	},
-] satisfies Setting[]
+const settings = computed(() => {
+	return [
+		{
+			label: $t("language"),
+			executor: "language",
+		},
+		{
+			label: $t("get version", { type: "yt-dlp" }),
+			executor: () => getVersion("yt-dlp"),
+		},
+		{
+			label: $t("get version", { type: "ffmpeg" }),
+			executor: () => getVersion("ffmpeg"),
+		},
+	] satisfies Setting[]
+})
 
 const version = ref<string>()
 
@@ -48,6 +52,24 @@ onMounted(async () => {
 	const versionResponse = await electrobun.rpc?.request("getGuiVersion", {})
 
 	version.value = versionResponse?.output
+})
+
+const ytDlpChannel = useLs("ytdlpChannel", "stable")
+const ytDlpChannels = ref(["stable", "nightly"] satisfies SelectItem[])
+const channelSwitching = ref(false)
+
+watch(ytDlpChannel, async (newChannel) => {
+	channelSwitching.value = true
+
+	await electrobun.rpc?.request("deleteYtDlpBinary", {})
+	await electrobun.rpc?.request("ensureBinaries", { channel: newChannel })
+
+	channelSwitching.value = false
+
+	toast.add({
+		title: $t("switched to channel", { channel: newChannel }),
+		color: "success",
+	})
 })
 </script>
 
@@ -75,6 +97,20 @@ onMounted(async () => {
 						<LocaleSelect />
 					</div>
 					<span v-else>{{ $t("not available") }}</span>
+				</div>
+			</div>
+
+			<div class="mx-2 my-4 flex place-content-between place-items-center">
+				<div>
+					<h2 class="text-lg font-bold">{{ $t("yt-dlp channel") }}</h2>
+				</div>
+				<div>
+					<USelect
+						v-model="ytDlpChannel"
+						:items="ytDlpChannels"
+						:loading="channelSwitching"
+						:disabled="channelSwitching"
+					/>
 				</div>
 			</div>
 		</UCard>

@@ -149,7 +149,7 @@ const pasteFromClipboard = async () => {
 				<UButton
 					type="submit"
 					loading-auto
-					icon="lucide:rocket"
+					icon="lucide:download"
 					:disabled="filePickerOpen"
 					class="mt-2 w-full"
 					:variant="state.url.length > 0 ? 'solid' : 'subtle'"

@@ -1,3 +1,5 @@
+import type { DownloadChannel } from "../shared/types/rpc"
+
 import { YtDlp, type VideoProgress } from "ytdlp-nodejs"
 
 import { downloadFFmpeg, findFFmpegBinary } from "./yt-dlp-utils/ffmpeg"
@@ -55,8 +57,8 @@ export class YtDlpInstance {
 		return output.trim()
 	}
 
-	ensureBinaries = async () => {
-		const ytdlp = await downloadYtDlp()
+	ensureBinaries = async (channel: DownloadChannel) => {
+		const ytdlp = await downloadYtDlp(channel)
 		if (!ytdlp) throw new Error("Ytdlp binary couldn't be downloaded.")
 
 		const ffmpeg = await downloadFFmpeg()

@@ -5,11 +5,11 @@
 	"setting up...": "Setting up...",
 	"could not get version": "Could not get {type} version.",
 	"get version": "Get {type} version",
-	"error": "error",
-	"language": "language",
-	"execute": "execute",
+	"error": "Error",
+	"language": "Language",
+	"execute": "Execute",
 	"ETA": "ETA",
-	"downloaded": "downloaded",
+	"downloaded": "Downloaded",
 	"no custom folder selected": "No custom folder selected.",
 	"deleted": "Deleted {target}",
 	"custom": "Custom",
@@ -21,5 +21,7 @@
 	"Music": "Music",
 	"Pictures": "Pictures",
 	"Videos": "Videos",
-	"Paste": "Paste"
+	"Paste": "Paste",
+	"yt-dlp channel": "yt-dlp channel",
+	"switched to channel": "Switched to channel {channel}"
 }
