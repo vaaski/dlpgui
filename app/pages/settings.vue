@@ -26,6 +26,8 @@ const getVersion = async (type: "yt-dlp" | "ffmpeg") => {
 		title: `Version (${type})`,
 		description: version.output,
 		color: "info",
+		id: `version ${type}`,
+		duration: 4e3,
 	})
 }
 
@@ -38,6 +40,24 @@ const settings = computed(() => {
 		{
 			label: $t("get version", { type: "yt-dlp" }),
 			executor: () => getVersion("yt-dlp"),
+		},
+		{
+			label: $t("update", { target: "yt-dlp" }),
+			executor: async () => {
+				await electrobun.rpc?.request("deleteYtDlpBinary", {})
+				await electrobun.rpc?.request("ensureBinaries", {
+					channel: ytDlpChannel.value,
+				})
+
+				toast.add({
+					title: $t("updated, getting version", { target: "yt-dlp" }),
+					color: "success",
+					id: "version yt-dlp",
+					duration: 0,
+				})
+
+				getVersion("yt-dlp")
+			},
 		},
 		{
 			label: $t("get version", { type: "ffmpeg" }),

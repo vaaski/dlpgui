@@ -4,7 +4,7 @@ Minimal GUI for the great [yt-dlp](https://github.com/yt-dlp/yt-dlp) built with 
 
 This was mainly a 2-day exercise to get my hands dirty with [Electrobun](https://github.com/blackboardsh/electrobun), the [Oxc](https://oxc.rs/) toolchain and [Nuxt/Vue i18n](https://i18n.nuxtjs.org/).
 
-Also uses [ytdlp-nodejs](https://npmx.dev/package/ytdlp-nodejs) with some of the downloading logic adapted to my needs.
+Also uses [ytdlp-nodejs](https://npmx.dev/package/ytdlp-nodejs) with some of the binary downloading logic adapted to my needs.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/dlpgui-main-dark.png">
@@ -22,12 +22,12 @@ Also uses [ytdlp-nodejs](https://npmx.dev/package/ytdlp-nodejs) with some of the
   - `MP4` (fastest combined audio+video, youtube limits this to around 720p)
   - `MP4 (best quality)` (uses ffmpeg to combine best video and audio)
 - Pick custom or from a list of common download locations
-- German and English translations (both bad)
 - Paste from clipboard button
 - Progress reporting
-- Show downloaded file in folder
-- Light and dark mode
+- Button to show downloaded file in folder
+- Light and dark modes
 - Auto-updates
+- German and English translations (both bad)
 - Custom yt-dlp channel (stable or nightly)
 - Windows and Mac versions (can't be bothered to test on linux)
 
@@ -95,3 +95,5 @@ I am open to contributions though.
 		<img alt="Brainmade.org Logo" src="https://brainmade.org/black-logo.svg">
 	</picture>
 </a>
+
+[![wakatime](https://wakatime.com/badge/user/bc63fe59-dab3-4d67-8b03-cf7cac9cad4f/project/03d24906-9ed8-4c67-8f66-f063bd42800c.svg)](https://wakatime.com/badge/user/bc63fe59-dab3-4d67-8b03-cf7cac9cad4f/project/03d24906-9ed8-4c67-8f66-f063bd42800c)

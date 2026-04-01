@@ -24,5 +24,7 @@
 	"Paste": "Paste",
 	"yt-dlp channel": "yt-dlp channel",
 	"switched to channel": "Switched to channel {channel}",
-	"show in folder": "Show in folder"
+	"show in folder": "Show in folder",
+	"update": "Update {target}",
+	"updated, getting version": "Updated {target}, getting version..."
 }

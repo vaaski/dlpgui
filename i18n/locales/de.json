@@ -24,5 +24,7 @@
 	"Paste": "Einfügen",
 	"yt-dlp channel": "yt-dlp Entwicklungsstand",
 	"switched to channel": "Zum {channel} Entwicklungsstand gewechselt",
-	"show in folder": "In Ordner anzeigen"
+	"show in folder": "In Ordner anzeigen",
+	"update": "{target} aktualisieren",
+	"updated, getting version": "{target} aktualisiert, Version wird abgerufen..."
 }
