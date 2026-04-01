@@ -95,5 +95,3 @@ I am open to contributions though.
 		<img alt="Brainmade.org Logo" src="https://brainmade.org/black-logo.svg">
 	</picture>
 </a>
-
-[![wakatime](https://wakatime.com/badge/user/bc63fe59-dab3-4d67-8b03-cf7cac9cad4f/project/03d24906-9ed8-4c67-8f66-f063bd42800c.svg)](https://wakatime.com/badge/user/bc63fe59-dab3-4d67-8b03-cf7cac9cad4f/project/03d24906-9ed8-4c67-8f66-f063bd42800c)
